@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janan Foods - Complete Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #D4AF37;
+            --primary-dark: #B8941F;
+            --secondary: #1a1a1a;
+            --accent: #FF6B35;
+            --bg: #0a0a0a;
+            --bg-card: #151515;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .menu-header {
+            background: linear-gradient(135deg, rgba(21, 21, 21, 0.98) 0%, rgba(26, 20, 16, 0.98) 100%);
+            padding: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(20px);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 2px solid var(--primary);
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 3.5rem 1rem 3.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            color: var(--text);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .clear-search.active {
+            display: block;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-filter::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 50px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--primary);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-color: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Hot Deals Banner */
+        .hot-deals-banner {
+            background: linear-gradient(135deg, #FF6B35 0%, #ff8c5a 100%);
+            padding: 2rem;
+            border-radius: 25px;
+            margin: 2rem auto;
+            max-width: 1400px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .deals-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .deals-content p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        /* Menu Container */
+        .menu-container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), transparent);
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .item-info {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .item-name-urdu {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .item-badge {
+            background: linear-gradient(135deg, var(--accent), #ff8c5a);
+            color: white;
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            white-space: nowrap;
+            animation: pulse 2s infinite;
+        }
+
+        .item-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .detail-item i {
+            color: var(--primary);
+        }
+
+        /* Deal Items Grid */
+        .deal-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.8rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .deal-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .deal-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateX(5px);
+        }
+
+        .deal-item-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .deal-item-text {
+            font-size: 0.9rem;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .item-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        /* Size Selector */
+        .size-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .size-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .size-option:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--primary);
+        }
+
+        .size-option.selected {
+            background: rgba(212, 175, 55, 0.15);
+            border-color: var(--primary);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        .size-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .size-label {
+            flex: 1;
+            margin: 0 1rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .size-price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .order-btn:active {
+            transform: translateY(0);
+        }
+
+        .order-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: var(--bg-card);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--primary);
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-top: 0.8rem;
+        }
+
+        .qty-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: transparent;
+            color: var(--text);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cart-total span:last-child {
+            color: var(--primary);
+        }
+
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .cart-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .empty-cart i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Floating Cart Button */
+        .floating-cart {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .floating-btn {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .floating-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.6);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            border: 2px solid var(--bg);
+        }
+
+        /* Popup */
+        .popup-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: all;
+        }
+
+        .popup-content {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a1410 100%);
+            border-radius: 30px;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            border: 2px solid var(--primary);
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.3);
+            overflow: hidden;
+            animation: popupBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        @keyframes popupBounce {
+            0% {
+                transform: scale(0.5) rotate(-5deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05) rotate(2deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .popup-badge {
+            position: absolute;
+            top: -10px;
+            right: 30px;
+            background: linear-gradient(135deg, #FF6B35, #ff8c5a);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.5);
+            animation: pulse 2s infinite;
+            z-index: 1;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--text);
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .popup-close:hover {
+            background: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .popup-image {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .popup-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .popup-body {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .popup-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .popup-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), #f4e4b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .popup-subtitle {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .popup-description {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .popup-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .popup-btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .popup-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .popup-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .popup-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .popup-btn-secondary:hover {
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .deal-items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hot-deals-banner {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .header-top {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .category-filter {
+                padding: 1rem 0;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+
+            .cart-sidebar.open {
+                right: 0;
+            }
+
+            .floating-cart {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .floating-btn {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-item {
+            animation: fadeIn 0.5s ease backwards;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="menu-header">
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="https://raw.githubusercontent.com/zaroffical99-obscur3x/images/refs/heads/main/logo.jpeg" alt="Janan Foods">
+                    </div>
+                    <span>Janan Foods</span>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="openCart()">
+                        <i class="fas fa-shopping-cart"></i> View Cart (<span id="headerCartCount">0</span>)
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-bar" id="searchInput" placeholder="Search for Pulao, Karahi, Kebab...">
+                <button class="clear-search" id="clearSearch" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="menu-container">
+        <div class="category-filter" id="categoryFilter">
+            <button class="category-btn active" onclick="filterCategory('all')">
+                <i class="fas fa-th"></i> All Items
+            </button>
+            <button class="category-btn" onclick="filterCategory('deals')">
+                <i class="fas fa-fire"></i> Hot Deals
+            </button>
+            <button class="category-btn" onclick="filterCategory('pulao')">
+                <i class="fas fa-bowl-rice"></i> Pulao
+            </button>
+            <button class="category-btn" onclick="filterCategory('karahi')">
+                <i class="fas fa-pot-food"></i> Karahi & Handi
+            </button>
+            <button class="category-btn" onclick="filterCategory('bbq')">
+                <i class="fas fa-fire-flame-curved"></i> BBQ
+            </button>
+            <button class="category-btn" onclick="filterCategory('kebab')">
+                <i class="fas fa-drumstick-bite"></i> Kebab
+            </button>
+            <button class="category-btn" onclick="filterCategory('platter')">
+                <i class="fas fa-utensils"></i> Platters
+            </button>
+            <button class="category-btn" onclick="filterCategory('pizza')">
+                <i class="fas fa-pizza-slice"></i> Pizza
+            </button>
+        </div>
+
+        <!-- Hot Deals Banner -->
+        <div class="hot-deals-banner">
+            <div class="deals-content">
+                <h2>🔥 Special Offer!</h2>
+                <p>FREE Raita on orders above PKR 1,200</p>
+            </div>
+            <button class="btn btn-primary" onclick="scrollToDeals()">
+                View Deals
+            </button>
+        </div>
+
+        <!-- Menu Items Container -->
+        <div id="menuContent"></div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>No items found</h3>
+            <p>Try searching for something else</p>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" id="closeCart" onclick="closeCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some delicious items to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">PKR 0</span>
+            </div>
+            <button class="btn btn-primary" style="width: 100%;" onclick="checkout()">
+                <i class="fab fa-whatsapp"></i> Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- Floating Cart Button -->
+    <div class="floating-cart">
+        <button class="floating-btn" onclick="openCart()" title="View Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-badge" id="cartBadge">0</span>
+        </button>
+    </div>
+
+    <!-- Hot Deals Popup -->
+    <div class="popup-overlay" id="dealsPopup">
+        <div class="popup-content">
+            <div class="popup-badge">🔥 HOT DEAL!</div>
+            <button class="popup-close" onclick="closePopup()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="popup-image">
+                <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80" alt="Special Offer">
+            </div>
+            <div class="popup-body">
+                <div class="popup-icon">🎉</div>
+                <h2 class="popup-title">Welcome to Janan Foods!</h2>
+                <p class="popup-subtitle">EXCLUSIVE OPENING OFFER</p>
+                <p class="popup-description">
+                    Get <strong>FREE Raita</strong> with every order above PKR 1,200! 
+                    Experience authentic Bannu flavors with our legendary beef pulao & kebabs.
+                </p>
+                <div class="popup-buttons">
+                    <button class="popup-btn popup-btn-primary" onclick="exploreMenu()">
+                        <i class="fas fa-utensils"></i> Explore Menu
+                    </button>
+                    <button class="popup-btn popup-btn-secondary" onclick="closePopup()">
+                        <i class="fas fa-clock"></i> Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Data
+        const menuData = {
+            deals: [
+                {
+                    id: 'deal-1',
+                    name: "4 Person Family Deal",
+                    nameUrdu: "۴ افراد فیملی ڈیل",
+                    price: 2999,
+                    dealItems: [
+                        { icon: '🍚', text: 'Bannu Beef Pulao 1kg' },
+                        { icon: '🍲', text: 'Chicken Karahi Half' },
+                        { icon: '🥩', text: 'Beef Painda Single' },
+                        { icon: '🥙', text: '2 Chapli Kebab' },
+                        { icon: '🍗', text: '5 Chicken Malai Boti' },
+                        { icon: '🍗', text: '1 Chicken Leg Piece' },
+                        { icon: '🥗', text: 'Raita' },
+                        { icon: '🥗', text: 'Salad' },
+                        { icon: '🥤', text: '1 Ltr Cold Drink' },
+                        { icon: '🫓', text: 'Roti + Naan' }
+                    ],
+                    category: "deals",
+                    badge: "Special Offer",
+                    persons: "4"
+                },
+                {
+                    id: 'deal-2',
+                    name: "Platter for 2-3 Persons",
+                    nameUrdu: "۲-۳ افراد پلیٹر",
+                    price: 2499,
+                    dealItems: [
+                        { icon: '🍲', text: 'Chicken Karahi 1kg' },
+                        { icon: '🥙', text: '2 Seekh Kabab' },
+                        { icon: '🍗', text: '2 Chicken Kabab' },
+                        { icon: '🥙', text: '1 Chapli Kabab' },
+                        { icon: '🥗', text: 'Salad' },
+                        { icon: '🥗', text: 'Raita' },
+                        { icon: '🫓', text: '5 Roghni Naan' },
+                        { icon: '🥤', text: '1 Ltr Cold Drink' }
+                    ],
+                    category: "platter",
+                    persons: "2-3"
+                },
+                {
+                    id: 'deal-3',
+                    name: "Platter for 3-4 Persons",
+                    nameUrdu: "۳-۴ افراد پلیٹر",
+                    price: 3999,
+                    dealItems: [
+                        { icon: '🍲', text: 'Chicken Karahi 1kg' },
+                        { icon: '🍲', text: 'Chicken Green Karahi 500g' },
+                        { icon: '🍗', text: '5 Chicken Boti Handi' },
+                        { icon: '🥙', text: '5 Seekh Kabab' },
+                        { icon: '🥙', text: '4 Chapli Kabab' },
+                        { icon: '🥗', text: 'Salad & Raita' },
+                        { icon: '🫓', text: '6 Roghni Naan' },
+                        { icon: '🥤', text: '1.5 Ltr Cold Drink' }
+                    ],
+                    category: "platter",
+                    persons: "3-4"
+                },
+                {
+                    id: 'deal-4',
+                    name: "Platter for 7-8 Persons",
+                    nameUrdu: "۷-۸ افراد پلیٹر",
+                    price: 8999,
+                    dealItems: [
+                        { icon: '🍲', text: 'Chicken Karahi 2kg' },
+                        { icon: '🍲', text: 'Chicken Green Karahi 1kg' },
+                        { icon: '🥙', text: '4 Seekh Kabab' },
+                        { icon: '🍗', text: '4 Chicken Boti' },
+                        { icon: '🥙', text: '4 Chapli Kabab' },
+                        { icon: '🥗', text: 'Salad & Raita' },
+                        { icon: '🫓', text: '10 Roghni Naan' },
+                        { icon: '🥤', text: '1.5 Ltr Cold Drink' }
+                    ],
+                    category: "platter",
+                    badge: "Best Value",
+                    persons: "7-8"
+                }
+            ],
+            pulao: [
+                {
+                    id: 'pulao-1',
+                    name: "Bannu Beef Pulao",
+                    nameUrdu: "بنوں بیف پلاؤ",
+                    price: 1000,
+                    weight: "1 kg",
+                    category: "pulao",
+                    badge: "Signature"
+                },
+                {
+                    id: 'pulao-2',
+                    name: "Bannu Beef Pulao",
+                    nameUrdu: "بنوں بیف پلاؤ",
+                    price: 500,
+                    weight: "½ kg",
+                    category: "pulao"
+                },
+                {
+                    id: 'pulao-3',
+                    name: "Dum Pukht",
+                    nameUrdu: "دم پخت",
+                    price: 2699,
+                    weight: "per kg",
+                    category: "pulao",
+                    badge: "Premium"
+                },
+                {
+                    id: 'pulao-4',
+                    name: "Plain Lamb Pulao",
+                    nameUrdu: "سادہ دنبہ پلاؤ",
+                    price: 799,
+                    weight: "1 kg",
+                    category: "pulao"
+                }
+            ],
+            karahi: [
+                {
+                    id: 'karahi-1',
+                    name: "Mutton Special Karahi",
+                    nameUrdu: "مٹن اسپیشل کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 3499 },
+                        { label: 'Half', price: 1849 }
+                    ],
+                    category: "karahi",
+                    badge: "Premium"
+                },
+                {
+                    id: 'karahi-2',
+                    name: "Mutton White Karahi",
+                    nameUrdu: "مٹن وائٹ کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 3599 },
+                        { label: 'Half', price: 1849 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-3',
+                    name: "Beef Karahi",
+                    nameUrdu: "بیف کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 2199 },
+                        { label: 'Half', price: 1199 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-4',
+                    name: "Chicken Boneless Karahi",
+                    nameUrdu: "چکن بون لیس کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 2199 },
+                        { label: 'Half', price: 1199 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-5',
+                    name: "Chicken White Karahi",
+                    nameUrdu: "چکن وائٹ کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 2199 },
+                        { label: 'Half', price: 1199 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-6',
+                    name: "Chicken Ginger Karahi",
+                    nameUrdu: "چکن جنجر کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 2299 },
+                        { label: 'Half', price: 1299 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-7',
+                    name: "Chicken Achari Karahi",
+                    nameUrdu: "چکن اچاری کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 2299 },
+                        { label: 'Half', price: 1299 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-8',
+                    name: "Lamb Shinwari Karahi",
+                    nameUrdu: "شنواری دنبہ کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 3499 },
+                        { label: 'Half', price: 1849 }
+                    ],
+                    category: "karahi",
+                    badge: "Signature"
+                },
+                {
+                    id: 'karahi-9',
+                    name: "Lamb Sulemani Karahi",
+                    nameUrdu: "سلیمانی دنبہ کڑاہی",
+                    sizes: [
+                        { label: 'Full', price: 3499 },
+                        { label: 'Half', price: 1849 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-10',
+                    name: "Lamb Shinwari Stew",
+                    nameUrdu: "شنواری دنبہ اسٹو",
+                    sizes: [
+                        { label: 'Full', price: 2199 },
+                        { label: 'Half', price: 1199 }
+                    ],
+                    category: "karahi"
+                },
+                {
+                    id: 'karahi-11',
+                    name: "Lamb Sulemani Stew",
+                    nameUrdu: "سلیمانی دنبہ اسٹو",
+                    sizes: [
+                        { label: 'Full', price: 2199 },
+                        { label: 'Half', price: 1199 }
+                    ],
+                    category: "karahi"
+                }
+            ],
+            bbq: [
+                {
+                    id: 'bbq-1',
+                    name: "Chicken Malai Boti",
+                    nameUrdu: "چکن ملائی بوٹی",
+                    sizes: [
+                        { label: 'Half', price: 670 },
+                        { label: 'Full', price: 1350 }
+                    ],
+                    category: "bbq",
+                    badge: "Popular"
+                },
+                {
+                    id: 'bbq-2',
+                    name: "Chicken Tikka Boti",
+                    nameUrdu: "چکن تکہ بوٹی",
+                    sizes: [
+                        { label: 'Half', price: 630 },
+                        { label: 'Full', price: 1250 }
+                    ],
+                    category: "bbq"
+                },
+                {
+                    id: 'bbq-3',
+                    name: "Chicken Achari Boti",
+                    nameUrdu: "چکن اچاری بوٹی",
+                    sizes: [
+                        { label: 'Half', price: 650 },
+                        { label: 'Full', price: 1250 }
+                    ],
+                    category: "bbq"
+                },
+                {
+                    id: 'bbq-4',
+                    name: "Chicken Reshmi Kabab",
+                    nameUrdu: "چکن ریشمی کباب",
+                    sizes: [
+                        { label: 'Half', price: 630 },
+                        { label: 'Full', price: 1250 }
+                    ],
+                    category: "bbq"
+                },
+                {
+                    id: 'bbq-5',
+                    name: "Lamb Chops",
+                    nameUrdu: "دنبہ چانپ",
+                    price: 3399,
+                    weight: "1 kg",
+                    category: "bbq",
+                    badge: "Premium"
+                },
+                {
+                    id: 'bbq-6',
+                    name: "Lamb Tikka",
+                    nameUrdu: "دنبہ تکہ",
+                    price: 899,
+                    pieces: "9 pcs",
+                    category: "bbq"
+                },
+                {
+                    id: 'bbq-7',
+                    name: "Full Chargha",
+                    nameUrdu: "فل چرغہ",
+                    price: 1399,
+                    category: "bbq"
+                },
+                {
+                    id: 'bbq-8',
+                    name: "Dumba Rosh",
+                    nameUrdu: "دنبہ روش",
+                    price: 1050,
+                    category: "bbq"
+                }
+            ],
+            kebab: [
+                {
+                    id: 'kebab-1',
+                    name: "Chapli Kabab",
+                    nameUrdu: "چپلی کباب",
+                    price: 1400,
+                    weight: "1 kg",
+                    category: "kebab",
+                    badge: "Signature"
+                },
+                {
+                    id: 'kebab-2',
+                    name: "Chapli Kabab",
+                    nameUrdu: "چپلی کباب",
+                    price: 700,
+                    weight: "500 g",
+                    category: "kebab"
+                },
+                {
+                    id: 'kebab-3',
+                    name: "Chapli Kabab",
+                    nameUrdu: "چپلی کباب",
+                    price: 350,
+                    weight: "250 g",
+                    category: "kebab"
+                }
+            ],
+            pizza: [
+                {
+                    id: 'pizza-1',
+                    name: "Desi Chicken Tikka Pizza",
+                    nameUrdu: "دیسی چکن تکہ پیزا",
+                    sizes: [
+                        { label: 'Small', price: 650 },
+                        { label: 'Medium', price: 1300 },
+                        { label: 'Large', price: 1950 }
+                    ],
+                    category: "pizza",
+                    badge: "Special"
+                },
+                {
+                    id: 'pizza-2',
+                    name: "Chicken Fajita Pizza",
+                    nameUrdu: "چکن فجیتا پیزا",
+                    sizes: [
+                        { label: 'Small', price: 400 },
+                        { label: 'Medium', price: 800 },
+                        { label: 'Large', price: 1200 }
+                    ],
+                    category: "pizza"
+                }
+            ]
+        };
+
+        // Cart
+        let cart = [];
+        let currentFilter = 'all';
+        let searchQuery = '';
+
+        // Render Menu
+        function renderMenu() {
+            const menuContent = document.getElementById('menuContent');
+            const noResults = document.getElementById('noResults');
+            let html = '';
+            let hasResults = false;
+
+            function matchesSearch(item) {
+                if (searchQuery === '') return true;
+                const query = searchQuery.toLowerCase();
+                return item.name.toLowerCase().includes(query) || 
+                       (item.nameUrdu && item.nameUrdu.includes(query));
+            }
+
+            Object.keys(menuData).forEach(category => {
+                if (currentFilter !== 'all' && currentFilter !== category) return;
+
+                const items = menuData[category].filter(matchesSearch);
+                if (items.length === 0) return;
+
+                hasResults = true;
+                const categoryTitles = {
+                    deals: '🔥 Hot Deals & Special Offers',
+                    pulao: '🍚 Janan Special Pulao',
+                    karahi: '🍲 Desi Karahi & Handi',
+                    bbq: '🔥 BBQ & Grills',
+                    kebab: '🥙 Chapli Kabab',
+                    platter: '🍽️ Family Platters',
+                    pizza: '🍕 Janan Special Pizza'
+                };
+
+                html += `<h2 class="section-title" id="section-${category}">${categoryTitles[category]}</h2>`;
+                html += '<div class="menu-grid">';
+
+                items.forEach(item => {
+                    const hasSizes = item.sizes && item.sizes.length > 0;
+                    const displayPrice = item.price || (hasSizes ? 'Select size' : 'N/A');
+                    
+                    html += `
+                        <div class="menu-item" style="animation-delay: 0.1s;">
+                            <div class="item-header">
+                                <div class="item-info">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-name-urdu">${item.nameUrdu}</div>
+                                </div>
+                                ${item.badge ? `<span class="item-badge">${item.badge}</span>` : ''}
+                            </div>
+                            
+                            <div class="item-details">
+                                ${item.weight ? `<span class="detail-item"><i class="fas fa-weight"></i> ${item.weight}</span>` : ''}
+                                ${item.pieces ? `<span class="detail-item"><i class="fas fa-layer-group"></i> ${item.pieces}</span>` : ''}
+                                ${item.persons ? `<span class="detail-item"><i class="fas fa-users"></i> ${item.persons} persons</span>` : ''}
+                            </div>
+                            
+                            ${item.dealItems ? `
+                                <div class="deal-items-grid">
+                                    ${item.dealItems.map(dealItem => `
+                                        <div class="deal-item">
+                                            <div class="deal-item-icon">${dealItem.icon}</div>
+                                            <div class="deal-item-text">${dealItem.text}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            
+                            ${hasSizes ? `
+                                <div class="size-selector" id="size-selector-${item.id}">
+                                    ${item.sizes.map((size, index) => `
+                                        <div class="size-option ${index === 0 ? 'selected' : ''}" onclick="selectSize('${item.id}', ${index})">
+                                            <input type="radio" name="size-${item.id}" value="${index}" ${index === 0 ? 'checked' : ''} onchange="selectSize('${item.id}', ${index})">
+                                            <label class="size-label">${size.label}</label>
+                                            <span class="size-price">PKR ${size.price}</span>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : `
+                                <div class="item-price">PKR ${displayPrice}</div>
+                            `}
+                            
+                            <button class="order-btn" onclick='addToCartWithSize(${JSON.stringify(item)})'>
+                                <i class="fas fa-cart-plus"></i> Add to Cart
+                            </button>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            menuContent.innerHTML = html;
+            noResults.style.display = hasResults ? 'none' : 'block';
+        }
+
+        // Select Size Function
+        function selectSize(itemId, sizeIndex) {
+            const selector = document.getElementById(`size-selector-${itemId}`);
+            if (selector) {
+                const options = selector.querySelectorAll('.size-option');
+                options.forEach((opt, idx) => {
+                    if (idx === sizeIndex) {
+                        opt.classList.add('selected');
+                    } else {
+                        opt.classList.remove('selected');
+                    }
+                });
+            }
+        }
+
+        // Cart Functions
+        function addToCartWithSize(item) {
+            let selectedItem = { ...item };
+            
+            // Check if item has sizes
+            if (item.sizes && item.sizes.length > 0) {
+                const selector = document.getElementById(`size-selector-${item.id}`);
+                const selectedRadio = selector.querySelector('input[type="radio"]:checked');
+                const sizeIndex = parseInt(selectedRadio.value);
+                const selectedSize = item.sizes[sizeIndex];
+                
+                selectedItem.selectedSize = selectedSize.label;
+                selectedItem.price = selectedSize.price;
+                selectedItem.uniqueId = `${item.id}-${selectedSize.label}`;
+            } else {
+                selectedItem.uniqueId = item.id;
+            }
+            
+            addToCart(selectedItem);
+        }
+
+        function addToCart(item) {
+            const itemId = item.uniqueId || item.id;
+            const existingItem = cart.find(i => (i.uniqueId || i.id) === itemId);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...item, quantity: 1 });
+            }
+            
+            updateCart();
+            showNotification(`${item.name}${item.selectedSize ? ' (' + item.selectedSize + ')' : ''} added to cart!`);
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => (item.uniqueId || item.id) !== itemId);
+            updateCart();
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = cart.find(i => (i.uniqueId || i.id) === itemId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartBadge = document.getElementById('cartBadge');
+            const headerCartCount = document.getElementById('headerCartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-bag"></i>
+                        <p>Your cart is empty</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some delicious items to get started!</p>
+                    </div>
+                `;
+                cartBadge.textContent = '0';
+                headerCartCount.textContent = '0';
+                cartTotal.textContent = 'PKR 0';
+                return;
+            }
+            
+            let totalItems = 0;
+            let totalPrice = 0;
+            
+            cartItems.innerHTML = cart.map(item => {
+                totalItems += item.quantity;
+                const itemPrice = item.price;
+                totalPrice += itemPrice * item.quantity;
+                
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}${item.selectedSize ? ' (' + item.selectedSize + ')' : ''}</div>
+                            <div class="cart-item-price">PKR ${itemPrice} each</div>
+                            <div class="cart-item-quantity">
+                                <button class="qty-btn" onclick="updateQuantity('${item.uniqueId || item.id}', -1)">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="updateQuantity('${item.uniqueId || item.id}', 1)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            cartBadge.textContent = totalItems;
+            headerCartCount.textContent = totalItems;
+            cartTotal.textContent = `PKR ${Math.round(totalPrice)}`;
+        }
+
+        function openCart() {
+            document.getElementById('cartSidebar').classList.add('open');
+            document.getElementById('cartOverlay').classList.add('active');
+        }
+
+        function closeCart() {
+            document.getElementById('cartSidebar').classList.remove('open');
+            document.getElementById('cartOverlay').classList.remove('active');
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            let message = 'Hello! I would like to order:%0A%0A';
+            let total = 0;
+            
+            cart.forEach(item => {
+                const itemPrice = item.price;
+                const itemName = `${item.name}${item.selectedSize ? ' (' + item.selectedSize + ')' : ''}`;
+                message += `${item.quantity}x ${itemName} - PKR ${itemPrice * item.quantity}%0A`;
+                total += itemPrice * item.quantity;
+            });
+            
+            message += `%0ATotal: PKR ${Math.round(total)}%0A%0A`;
+            message += 'Delivery Address:%0A';
+            message += 'Phone Number:%0A';
+            message += 'Special Instructions:%0A';
+            
+            window.open(`https://wa.me/923034414000?text=${message}`, '_blank');
+        }
+
+        // Filter Category
+        function filterCategory(category) {
+            currentFilter = category;
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderMenu();
+            
+            if (category !== 'all') {
+                setTimeout(() => {
+                    const section = document.getElementById(`section-${category}`);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            }
+        }
+
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        const clearSearchBtn = document.getElementById('clearSearch');
+
+        searchInput.addEventListener('input', (e) => {
+            searchQuery = e.target.value;
+            clearSearchBtn.classList.toggle('active', searchQuery !== '');
+            renderMenu();
+        });
+
+        function clearSearch() {
+            searchInput.value = '';
+            searchQuery = '';
+            clearSearchBtn.classList.remove('active');
+            renderMenu();
+        }
+
+        // Notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 30px;
+                background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+                color: var(--secondary);
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+                z-index: 3000;
+                font-weight: 600;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Popup Functions
+        function showPopup() {
+            const popup = document.getElementById('dealsPopup');
+            popup.classList.add('active');
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('dealsPopup');
+            popup.classList.remove('active');
+            localStorage.setItem('popupShown', 'true');
+        }
+
+        function exploreMenu() {
+            closePopup();
+            document.getElementById('menuContent').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToDeals() {
+            const dealsSection = document.getElementById('section-deals');
+            if (dealsSection) {
+                dealsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Initialize
+        renderMenu();
+
+        // Show popup after 2.5 seconds if not shown before
+        window.addEventListener('load', () => {
+            const popupShown = localStorage.getItem('popupShown');
+            if (!popupShown) {
+                setTimeout(showPopup, 2500);
+            }
+        });
+
+        // Close popup when clicking outside
+        document.getElementById('dealsPopup').addEventListener('click', (e) => {
+            if (e.target.id === 'dealsPopup') {
+                closePopup();
+            }
+        });
+
+        // Add animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(400px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(400px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
